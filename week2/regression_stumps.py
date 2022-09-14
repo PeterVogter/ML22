@@ -47,6 +47,14 @@ class RegressionStump():
         self.left = None
         self.right = None
         ### YOUR CODE HERE
+
+        num_points, num_features = data.shape
+        print(num_points)
+        best_score = None
+        for feat_idx in range (num_features):
+            feat = data[:, feat_idx]
+            for split_idx
+
         ### END CODE
 
     def predict(self, X):
@@ -58,8 +66,11 @@ class RegressionStump():
         returns pred: np.array shape n,  model prediction on X
         """
         pred = None
-        ### YOUR CODE HERE
-        ### END CODE
+        for i in range(X.shape[1]):
+            if X[i][self.idx] <= self.val:
+                pred[i] = self.left
+            else:
+                pred[i] = self.right
         return pred
     
     def score(self, X, y):
@@ -72,8 +83,8 @@ class RegressionStump():
         returns out: scalar - means least scores cost
         """
         out = None
-        ### YOUR CODE HERE
-        ### END CODE
+        pred = self.predict(X)
+        out = ((pred - y)**2).mean()
         return out
         
 
