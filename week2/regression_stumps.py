@@ -10,6 +10,11 @@ import pydotplus
 
 from sklearn.datasets import fetch_california_housing
 
+import os, ssl
+if (not os.environ.get('PYTHONHTTPSVERIFY', '') and
+    getattr(ssl, '_create_unverified_context', None)): 
+    ssl._create_default_https_context = ssl._create_unverified_context
+
 def plot_tree(dtree, feature_names):
     """ helper function """
     dot_data = StringIO()
@@ -33,7 +38,7 @@ class RegressionStump():
     def fit(self, data, targets):
         """ Fit a decision stump to data
         
-        Find the best way to split the data in feat  minimizig the cost (0-1) loss of the tree after the split 
+        Find the best way to split the data, minimizing the least squares loss of the tree after the split 
     
         Args:
            data: np.array (n, d)  features
@@ -74,13 +79,13 @@ class RegressionStump():
         return pred
     
     def score(self, X, y):
-        """ Compute accuracy of model
+        """ Compute mean least squares loss of the model
 
         Args
             X: np.array, shape n,d
             y: np.array, shape n, 
 
-        returns out: scalar - means least scores cost
+        returns out: scalar - mean least squares loss.
         """
         out = None
         pred = self.predict(X)
