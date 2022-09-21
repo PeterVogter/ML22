@@ -5,7 +5,6 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.datasets import fetch_california_housing
 
 class LinearRegressor():
-
     def __init__(self):
         self.w = None
         
